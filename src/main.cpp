@@ -1,6 +1,6 @@
 /*
  * Project: Particle Fire Explosion
- * Stage: 8
+ * Stage: 9
  * File: main.cpp
  * Author: suyashd95
  */
@@ -36,6 +36,9 @@ int main() {
 
 		// Draw particles
 		int elapsed = SDL_GetTicks();
+
+		screen.clear();
+		swarm.update();
 
 		unsigned char red = (unsigned char) ((1 + sin(elapsed * 0.0001)) * 128);
 		unsigned char green = (unsigned char) ((1 + sin(elapsed * 0.0002)) * 128);

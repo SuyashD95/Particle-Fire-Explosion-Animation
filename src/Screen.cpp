@@ -1,6 +1,6 @@
 /*
  * Project: Particle Fire Explosion
- * Stage: 8
+ * Stage: 9
  * File: Screen.cpp
  * Author: suyashd95
  */
@@ -58,6 +58,11 @@ bool Screen::init() {
 	memset(m_buffer, 0x00, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 
 	return true;
+}
+
+void Screen::clear() {
+
+	memset(m_buffer, 0x00, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 }
 
 void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue) {
