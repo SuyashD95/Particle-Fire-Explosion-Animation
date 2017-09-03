@@ -1,6 +1,6 @@
 /*
  * Project: Particle Fire Explosion
- * Stage: 5
+ * Stage: 6
  * File: Screen.h
  * Author: suyashd95
  */
@@ -27,6 +27,8 @@ private:
 public:
 	Screen();
 	bool init();
+	void setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue);
+	void update();
 	bool processEvents();
 	void close();
 };
