@@ -1,6 +1,6 @@
 /*
  * Project: Particle Fire Explosion
- * Stage: 7
+ * Stage: 8
  * File: main.cpp
  * Author: suyashd95
  */
@@ -8,13 +8,18 @@
 #include <iostream>
 #include <math.h>
 #include <SDL.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "Screen.h"
+#include "Swarm.h"
 
 using namespace std;
 using namespace particlefire;
 
 int main() {
+
+	srand(time(NULL));
 
 	Screen screen;
 
@@ -23,30 +28,29 @@ int main() {
 		cout << "Fatal Error: SDL failed to initialize." << endl;
 	}
 
-//	int max = 0;
+	Swarm swarm;
 
 	while(true) {
 
 		// Update particles
 
 		// Draw particles
-
 		int elapsed = SDL_GetTicks();
+
 		unsigned char red = (unsigned char) ((1 + sin(elapsed * 0.0001)) * 128);
 		unsigned char green = (unsigned char) ((1 + sin(elapsed * 0.0002)) * 128);
 		unsigned char blue = (unsigned char) ((1 + sin(elapsed * 0.0003)) * 128);
 
-//		cout << "Elapsed: " << elapsed << "; Red: " << (int)red << "; Green: " << (int)green << "; Blue: " << (int)blue << endl;
+		const Particle* const pParticles= swarm.getParticles();
 
-//		if(green > max)
-//			max = green;
+		for(int i = 0; i < Swarm::NPARTICLES; i++) {
 
-//		cout << elapsed << ":" << green << endl;
+			Particle particle = pParticles[i];
 
-		for(int y = 0; y < Screen::SCREEN_HEIGHT; y++) {
-			for(int x = 0; x < Screen::SCREEN_WIDTH; x++) {
-				screen.setPixel(x, y, red, green, blue);
-			}
+			int x = (particle.m_x + 1) * (Screen::SCREEN_WIDTH / 2);
+			int y = (particle.m_y + 1) * (Screen::SCREEN_HEIGHT / 2);
+
+			screen.setPixel(x, y, red, green, blue);
 		}
 
 		// Draw the screen
@@ -57,8 +61,6 @@ int main() {
 			break;
 		}
 	}
-
-//	cout << "Max: " << max << endl;
 
 	screen.close();
 

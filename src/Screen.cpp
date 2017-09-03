@@ -1,6 +1,6 @@
 /*
  * Project: Particle Fire Explosion
- * Stage: 7
+ * Stage: 8
  * File: Screen.cpp
  * Author: suyashd95
  */
@@ -61,6 +61,11 @@ bool Screen::init() {
 }
 
 void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue) {
+
+	if(x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT) {
+
+		return;
+	}
 
 	Uint32 color = 0;
 
