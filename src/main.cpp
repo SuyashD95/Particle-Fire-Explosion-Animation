@@ -1,6 +1,6 @@
 /*
  * Project: Particle Fire Explosion
- * Stage: 3
+ * Stage: 4
  * File: main.cpp
  * Author: suyashd95
  */
@@ -17,37 +17,36 @@ int main() {
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0) {
 
-		cout << "SDL_Init failed." << endl;
+		cout << "SDL_Init Failed: " << SDL_GetError() << endl;
 		return 1;
 	}
 
-	// Create an application window
 	SDL_Window* window = SDL_CreateWindow("Particle Fire Explosion", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 																	 SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
-	// Check that window has been successfully created
 	if(window == NULL) {
 
-		printf("Could not show window: %s\n", SDL_GetError()); // Outputs the error code/statement for debugging purposes
+		cout << "Could not show window: " << SDL_GetError() << endl;
 		SDL_Quit();
 		return 2;
 	}
 
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
-	SDL_Texture* texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB888, SDL_TEXTUREACCESS_STATIC,
-													   SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	if(renderer == NULL) {
 
-		printf("Could not create a renderer: %s\n", SDL_GetError());
+		cout << "Could not create a renderer: " << SDL_GetError() << endl;
 		SDL_DestroyWindow(window);
 		SDL_Quit();
 		return 3;
 	}
 
+	SDL_Texture* texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC,
+													   SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	if(texture == NULL) {
 
-		printf("Could not create a texture: %s\n", SDL_GetError());
+		cout << "Could not create a texture: " << SDL_GetError() << endl;
 		SDL_DestroyRenderer(renderer);
 		SDL_DestroyWindow(window);
 		SDL_Quit();
@@ -56,7 +55,19 @@ int main() {
 
 	Uint32* buffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
 
-	memset(buffer, 0xFF, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32)); // 255 (Decimal) -> 0xFF (Hexadecimal)
+	memset(buffer, 0x00, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+
+	for(int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; i++) {
+
+//		buffer[i] = 0xff0000ff; // For Red Background
+//		buffer[i] = 0x00ff00ff; // For Green Background
+//		buffer[i] = 0x0000ffff; // For Blue Background
+
+		buffer[i] = 0x23ff80ff;
+
+//		if(i >= 30000 && i <= 30200) // Setting a color of a group of pixel(s) individually
+//			buffer[i] = 0x0000ffff;
+	}
 
 	SDL_UpdateTexture(texture, NULL, buffer, SCREEN_WIDTH * sizeof(Uint32));
 	SDL_RenderClear(renderer);
@@ -67,16 +78,15 @@ int main() {
 
 	SDL_Event event;
 
-	while (!quit) {
+	while(!quit) {
 
 		// Update particles
 		// Draw particles
 		// Check for messages/events
 
+		while(SDL_PollEvent(&event)) {
 
-		while (SDL_PollEvent(&event)) {
-
-			if (event.type == SDL_QUIT) {
+			if(event.type == SDL_QUIT) {
 
 				quit = true;
 			}
@@ -84,8 +94,8 @@ int main() {
 	}
 
 	delete [] buffer;
-	SDL_DestroyRenderer(renderer);
 	SDL_DestroyTexture(texture);
+	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 
