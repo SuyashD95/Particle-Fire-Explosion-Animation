@@ -1,6 +1,6 @@
 /*
  * Project: Particle Fire Explosion
- * Stage: 12
+ * Stage: 13 (Final)
  * File: Particle.h
  * Author: suyashd95
  */
@@ -13,13 +13,18 @@
 
 namespace particlefire {
 
-struct Particle {
+class Particle {
 
+public:
 	double m_x;
 	double m_y;
 
+private:
 	double m_speed;
 	double m_direction;
+
+private:
+	void init();
 
 public:
 	Particle();
