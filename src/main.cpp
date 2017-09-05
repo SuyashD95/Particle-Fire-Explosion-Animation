@@ -1,6 +1,6 @@
 /*
  * Project: Particle Fire Explosion
- * Stage: 9
+ * Stage: 10
  * File: main.cpp
  * Author: suyashd95
  */
@@ -30,6 +30,9 @@ int main() {
 
 	Swarm swarm;
 
+	const int HALF_SCREEN_WIDTH = Screen::SCREEN_WIDTH / 2;
+	const int HALF_SCREEN_HEIGHT = Screen::SCREEN_HEIGHT / 2;
+
 	while(true) {
 
 		// Update particles
@@ -50,8 +53,8 @@ int main() {
 
 			Particle particle = pParticles[i];
 
-			int x = (particle.m_x + 1) * (Screen::SCREEN_WIDTH / 2);
-			int y = (particle.m_y + 1) * (Screen::SCREEN_HEIGHT / 2);
+			int x = (particle.m_x + 1) * HALF_SCREEN_WIDTH;
+			int y = (particle.m_y  * HALF_SCREEN_WIDTH) + HALF_SCREEN_HEIGHT;
 
 			screen.setPixel(x, y, red, green, blue);
 		}

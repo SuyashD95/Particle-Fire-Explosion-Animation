@@ -1,6 +1,6 @@
 /*
  * Project: Particle Fire Explosion
- * Stage: 9
+ * Stage: 10
  * File: Particle.h
  * Author: suyashd95
  */
@@ -9,6 +9,7 @@
 #define PARTICLE_H_
 
 #include <stdlib.h>
+#include <math.h>
 
 namespace particlefire {
 
@@ -17,8 +18,8 @@ struct Particle {
 	double m_x;
 	double m_y;
 
-	double m_xspeed;
-	double m_yspeed;
+	double m_speed;
+	double m_direction;
 
 public:
 	Particle();

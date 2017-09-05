@@ -1,6 +1,6 @@
 /*
  * Project: Particle Fire Explosion
- * Stage: 9
+ * Stage: 10
  * File: Swarm.h
  * Author: suyashd95
  */
@@ -15,7 +15,7 @@ namespace particlefire {
 class Swarm {
 
 public:
-	const static int NPARTICLES = 1000;
+	const static int NPARTICLES = 5000;
 
 private:
 	Particle* m_pParticles;
